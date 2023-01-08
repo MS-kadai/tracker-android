@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/menu_debug">
+
+    <fragment
+        android:id="@+id/menu_debug"
+        android:name="one.nem.tracker_kadai.debug_menu"
+        android:label="fragment_debug_menu"
+        tools:layout="@layout/fragment_debug_menu" />
+    <fragment
+        android:id="@+id/add_session"
+        android:name="one.nem.tracker_kadai.add_session"
+        android:label="fragment_add_session"
+        tools:layout="@layout/fragment_add_session" />
+    <fragment
+        android:id="@+id/menu_route"
+        android:name="one.nem.tracker_kadai.route"
+        android:label="fragment_route"
+        tools:layout="@layout/fragment_route" />
+</navigation>
