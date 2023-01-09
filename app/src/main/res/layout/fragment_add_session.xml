@@ -6,9 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".add_session">
 
-    <ImageView
-        android:id="@+id/imageView3"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ukuru" />
+        android:clickable="true"
+        android:src="@drawable/ic_baseline_refresh_24"/>
+
 </FrameLayout>
