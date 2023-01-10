@@ -10,7 +10,6 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ActionMenuView;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -18,14 +17,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import retrofit2.Retrofit;
 
 
 public class debug_menu extends Fragment {
@@ -76,6 +73,7 @@ public class debug_menu extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_debug_menu, container, false);
 
+        //サーバーのバージョンを取得するテストのやつ
         Button button_server_version = view.findViewById(R.id.debug_execute_server_version);
         button_server_version.setOnClickListener(v -> {
             Request request = new Request.Builder()
@@ -85,8 +83,6 @@ public class debug_menu extends Fragment {
             okHttpRequest(request, view);
         });
 
-//        mHandler = new Handler(Looper.getMainLooper());
-        final Handler handler = new Handler();
 
         //右のビュー切り替えるテストのやつ
         Button debug_r_change_debug_nemu = view.findViewById(R.id.debug_r_change_debug_menu);
@@ -110,12 +106,10 @@ public class debug_menu extends Fragment {
             changeRightFrame(new route());
         });
 
-
-
         return view;
     }
 
-    public void changeRightFrame(Fragment targetFragment){
+    public void changeRightFrame(Fragment targetFragment){ //渡されたfragmentを右のフレームに表示する
         getParentFragmentManager().beginTransaction().replace(
                 R.id.rightFrame , targetFragment).commit();
     }

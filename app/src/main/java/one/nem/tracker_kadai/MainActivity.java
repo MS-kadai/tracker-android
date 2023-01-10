@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -20,8 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Debug
         hideSystemUI();
-
-        //デバッグメニュー用の実装
 
         BottomNavigationView fragment = (BottomNavigationView) findViewById(R.id.bottomNavigationView); //ひだりがわ
 
