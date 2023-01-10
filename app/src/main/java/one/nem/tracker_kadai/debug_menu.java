@@ -10,6 +10,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ActionMenuView;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -87,7 +88,36 @@ public class debug_menu extends Fragment {
 //        mHandler = new Handler(Looper.getMainLooper());
         final Handler handler = new Handler();
 
+        //右のビュー切り替えるテストのやつ
+        Button debug_r_change_debug_nemu = view.findViewById(R.id.debug_r_change_debug_menu);
+        Button debug_r_change_no_content = view.findViewById(R.id.debug_r_change_no_content);
+        Button debug_r_change_route_list = view.findViewById(R.id.debug_r_change_route_list);
+        Button debug_r_change_route = view.findViewById(R.id.debug_r_change_route);
+
+        debug_r_change_debug_nemu.setOnClickListener(v -> {
+            changeRightFrame(new debug_menu());
+        });
+
+        debug_r_change_no_content.setOnClickListener(v -> {
+            changeRightFrame(new no_content());
+        });
+
+        debug_r_change_route_list.setOnClickListener(v -> {
+            changeRightFrame(new route_list());
+        });
+
+        debug_r_change_route.setOnClickListener(v -> {
+            changeRightFrame(new route());
+        });
+
+
+
         return view;
+    }
+
+    public void changeRightFrame(Fragment targetFragment){
+        getParentFragmentManager().beginTransaction().replace(
+                R.id.rightFrame , targetFragment).commit();
     }
 
 }

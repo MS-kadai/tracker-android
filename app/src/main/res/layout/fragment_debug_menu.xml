@@ -11,9 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
 
@@ -30,6 +31,53 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Execute" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+<!--            <TextView-->
+<!--                android:id="@+id/textView2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Right View" />-->
+
+            <Button
+                android:id="@+id/debug_r_change_debug_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="debug_menu"
+                android:textSize="8dp"/>
+
+            <Button
+                android:id="@+id/debug_r_change_no_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="no_content"
+                android:textSize="8dp"/>
+
+            <Button
+                android:id="@+id/debug_r_change_route"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="route"
+                android:textSize="8dp"/>
+
+            <Button
+                android:id="@+id/debug_r_change_route_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="route_list"
+                android:textSize="8dp"/>
         </LinearLayout>
     </LinearLayout>
+
 </FrameLayout>
