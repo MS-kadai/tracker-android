@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".add_session">
 
+    <TextView
+        android:id="@+id/add_session_debug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_refresh_route"
         android:layout_width="wrap_content"
