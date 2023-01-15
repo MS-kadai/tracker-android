@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class fragment_debug_session_update extends Fragment {
+public class debug_session_update extends Fragment {
 
 
     @Override
@@ -21,7 +21,7 @@ public class fragment_debug_session_update extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        View view = new
         return inflater.inflate(R.layout.fragment_debug_session_update, container, false);
     }
 }
