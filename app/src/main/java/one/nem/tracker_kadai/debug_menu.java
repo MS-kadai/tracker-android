@@ -106,6 +106,7 @@ public class debug_menu extends Fragment {
         Button debug_r_change_no_content = view.findViewById(R.id.debug_r_change_no_content);
         Button debug_r_change_route_list = view.findViewById(R.id.debug_r_change_route_list);
         Button debug_r_change_route = view.findViewById(R.id.debug_r_change_route);
+        Button debug_r_change_debug_session_update = view.findViewById(R.id.debug_r_change_debug_session_update);
 
         debug_r_change_debug_nemu.setOnClickListener(v -> {
             changeRightFrame(new debug_menu());
@@ -121,6 +122,9 @@ public class debug_menu extends Fragment {
 
         debug_r_change_route.setOnClickListener(v -> {
             changeRightFrame(new route());
+        });
+        debug_r_change_debug_session_update.setOnClickListener(v -> {
+            changeRightFrame(new debug_session_update());
         });
 
         //セッション作るテストのやつ
