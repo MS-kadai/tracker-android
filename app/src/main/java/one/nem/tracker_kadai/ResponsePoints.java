@@ -3,7 +3,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ResponsePoints {
     @JsonProperty
-    public int point_id;
+    public Integer point_id;
     @JsonProperty
     public String point_name;
     @JsonProperty

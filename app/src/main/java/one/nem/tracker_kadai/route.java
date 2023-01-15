@@ -74,8 +74,16 @@ public class route extends Fragment {
 
                     ResponseRoutePoint responseRoutePoint = objectMapper.readValue(response_body, ResponseRoutePoint.class);
                     List<String> pointNameList = new ArrayList<>();
+                    List<Integer> pointIdList = new ArrayList<>();
+                    List<String> pointCoordinateList = new ArrayList<>();
                     for(int i = 0; i < responseRoutePoint.length; i++) {
                         pointNameList.add(responseRoutePoint.route.get(i).point_name);
+                    }
+                    for(int i = 0; i < responseRoutePoint.length; i++) {
+                        pointIdList.add(responseRoutePoint.route.get(i).point_id);
+                    }
+                    for(int i = 0; i < responseRoutePoint.length; i++) {
+                        pointCoordinateList.add(responseRoutePoint.route.get(i).coordinate);
                     }
 
 
