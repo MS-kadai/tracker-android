@@ -82,7 +82,7 @@ public class add_session extends Fragment {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    add_session_debug_textView.setText(String.valueOf(debug_length_int));
+                                    add_session_debug_textView.setText(responseRouteList.routes.get(0).route_name);
                                 }
                             });
 
