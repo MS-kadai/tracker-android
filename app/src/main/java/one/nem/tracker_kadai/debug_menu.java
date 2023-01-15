@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -141,13 +142,24 @@ public class debug_menu extends Fragment {
 //            okHttpRequest(request, view);
 
             MediaType MIMEType = MediaType.parse("application/json; charset=utf-8");
-            RequestBody requestBody = RequestBody.create (MIMEType, "{\"route_id\": \"" + debug_select_route_id.getText().toString() + "\", \"session_id\": \"" + UUID.randomUUID().toString() + "\"}");
-            Request request = new Request.Builder()
-                    .url("http://10.0.2.2:8000/session/create")
-                    .post(requestBody)
-                    .build();
+            //RequestBody requestBody = RequestBody.create (MIMEType, "{\"route_id\": \"" + debug_select_route_id.getText().toString() + "\", \"session_id\": \"" + UUID.randomUUID().toString() + "\"}");
+            ObjectMapper objectMapper = new ObjectMapper();
+            RequestCreateSession requestCreateSession = new RequestCreateSession(UUID.randomUUID().toString(), debug_select_route_id.getText().toString());
+            try {
+                String requestBodyStr = objectMapper.writeValueAsString(requestCreateSession);
+                Request request = new Request.Builder()
+                        .url("http://10.0.2.2:8000/session/create")
+                        .post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestBodyStr))
+                        .build();
 
-            okHttpRequest(request, view);
+                        okHttpRequest(request, view);
+
+                        Log.d("debug", requestBodyStr);
+                        Log.d("debug", request.toString());
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+
         });
         return view;
     }
