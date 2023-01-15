@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 import okhttp3.Call;
@@ -48,21 +51,20 @@ public class add_session extends Fragment {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        RecyclerView add_session_recycler_view = view.findViewById(R.id.add_session_recycler_view);
-        add_session_recycler_view.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        RecyclerView.Adapter<RouteListAdapter.RouteListViewHolder> routeListAdapter = new RouteListAdapter();
-        add_session_recycler_view.setAdapter(routeListAdapter);
+//        RecyclerView add_session_recycler_view = view.findViewById(R.id.add_session_recycler_view);
+//        add_session_recycler_view.setHasFixedSize(true);
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+//        RecyclerView.Adapter<RouteListAdapter.RouteListViewHolder> routeListAdapter = new RouteListAdapter();
+//        add_session_recycler_view.setAdapter(routeListAdapter);
 
         fab_refresh_route_list.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View buttonView) {
                 Request request = new Request.Builder()
                         .url("http://10.0.2.2:8000/route/list")
                         .build();
 
                 OkHttpClient okHttpClient = new OkHttpClient();
-
                 okHttpClient.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NonNull Call call, @NonNull IOException e){
@@ -74,15 +76,21 @@ public class add_session extends Fragment {
                             final String jsonStr = response.body().string();
                             ResponseRouteList responseRouteList = objectMapper.readValue(jsonStr, ResponseRouteList.class);
 
-                            int debug_length_int = responseRouteList.length;
-
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
+                                    setRecyclerView(convertRouteListToList(responseRouteList), view);
 
-                                    //あとで
+                                    //debug
+//                                    List<String> testList = new ArrayList<>();
+//                                    testList.add ("test1");
+//                                    testList.add ("test2");
+//
+//                                    setRecyclerView(testList, view);
                                 }
                             });
+
+
 
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -94,6 +102,31 @@ public class add_session extends Fragment {
 
         return view;
 
+    }
+
+    public List<String> convertRouteListToList (ResponseRouteList responseRouteList) { //まだテスト用なのでIDとかは追加してないはず
+        List<String> routeNameList = new ArrayList<>();
+        for(int i = 0; i < responseRouteList.routes.size(); i++) {
+            routeNameList.add(responseRouteList.routes.get(i).route_name);
+        }
+        return routeNameList;
+    }
+
+    public void setRecyclerView(List<String> routeNameList, View view) {
+        RecyclerView add_session_recycler_view = view.findViewById(R.id.add_session_recycler_view);
+
+        if(add_session_recycler_view != null){ //debug
+            Log.d("DEBUG", "add_session_recycler_view is not null");
+        }
+        else{
+            Log.d("DEBUG", "add_session_recycler_view is null");
+        }
+
+//        add_session_recycler_view.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
+        add_session_recycler_view.setLayoutManager(layoutManager);
+        RecyclerView.Adapter<RouteListAdapter.RouteListViewHolder> routeListAdapter = new RouteListAdapter(routeNameList);
+        add_session_recycler_view.setAdapter(routeListAdapter);
     }
 
 }
