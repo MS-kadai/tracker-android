@@ -14,10 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -61,6 +64,7 @@ public class debug_session_update extends Fragment {
     public void postSessionUpdate(View view) {
         EditText u_debug_editText_session_id = view.findViewById(R.id.u_debug_editText_session_id);
         EditText u_debug_editText_point_id = view.findViewById(R.id.u_debug_editText_point_id);
+        TextView u_debug_textView_response = view.findViewById(R.id.u_debug_textView_response);
 
         ObjectMapper objectMapper = new ObjectMapper();
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -80,7 +84,8 @@ public class debug_session_update extends Fragment {
             okHttpClient.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    Log.d("debug", "onFailure: "+e.getMessage());
+//                    Log.d("debug", "onFailure: "+e.getMessage());
+                    u_debug_textView_response.setText("onFailure: "+e.getMessage());
                 }
 
                 @Override
@@ -89,7 +94,8 @@ public class debug_session_update extends Fragment {
                         @Override
                         public void run() {
                             try {
-                                Log.d("debug", "onResponse: " + response.body().string());
+//                                Log.d("debug", "onResponse: " + response.body().string());
+                                u_debug_textView_response.setText("onResponse: " + response.body().string());
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
