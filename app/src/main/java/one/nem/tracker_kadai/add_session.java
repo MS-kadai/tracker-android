@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.*;
+
 public class add_session extends Fragment {
 
 
@@ -45,6 +49,9 @@ public class add_session extends Fragment {
         final Handler handler = new Handler(Looper.getMainLooper());
         FloatingActionButton fab_refresh_route_list = view.findViewById(R.id.fab_refresh_route);
         TextView routes_textView = view.findViewById(R.id.add_session_debug);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
         fab_refresh_route_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,35 +64,33 @@ public class add_session extends Fragment {
                 okHttpClient.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NonNull Call call, @NonNull IOException e){
-
+                        Log.d("debug", "onFailure: " + e);
                     }
                     @Override
                     public void onResponse(@NonNull Call call, @NonNull Response response) {
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                final String jsonStr;
-                                try {
-                                    jsonStr = response.body().string();
-                                    JSONObject json = new JSONObject(jsonStr);
-                                    int length = json.getInt("length");
-                                    JSONArray routesJson = json.getJSONArray("routes");
+                        try {
+                            final String jsonStr = response.body().string();
+//                            JSONObject json = new JSONObject(jsonStr);
+//                            final String length = json.getString("length");
+//
+//                            Log.d("Tag", length+response.body().toString());
 
-                                        routes_textView.setText(length);
+                            ResponseRouteList responseRouteList = objectMapper.readValue(jsonStr, ResponseRouteList.class);
 
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    routes_textView.setText(responseRouteList.length);
+                                }
+                            });
 
 //                                    for (int i = 0; i > length; i++){
 //
 //                                    }
 
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        });
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }
