@@ -49,7 +49,9 @@ public class debug_session_update extends Fragment {
         fab_execute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { //どう考えて
+                    postSessionUpdate(view);
+                }
             }
         });
         return view;
@@ -69,7 +71,7 @@ public class debug_session_update extends Fragment {
         String requestUrl = "http://10.0.2.2:8000/session/"+u_debug_editText_session_id.getText().toString()+"/add";
         try {
             String requestBody = objectMapper.writeValueAsString(requestSessionUpdate);
-
+            Log.d("requestBody", requestBody);
             Request request = new Request.Builder()
                     .url(requestUrl)
                     .post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestBody))
@@ -78,7 +80,7 @@ public class debug_session_update extends Fragment {
             okHttpClient.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
-
+                    Log.d("debug", "onFailure: "+e.getMessage());
                 }
 
                 @Override
