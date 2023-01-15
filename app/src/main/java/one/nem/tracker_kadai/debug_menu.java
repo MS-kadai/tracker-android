@@ -19,6 +19,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -87,6 +89,7 @@ public class debug_menu extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_debug_menu, container, false);
 
+        final Handler handler = new Handler(Looper.getMainLooper());
         //サーバーのバージョンを取得するテストのやつ
         Button button_server_version = view.findViewById(R.id.debug_execute_server_version);
         button_server_version.setOnClickListener(v -> {
@@ -124,10 +127,18 @@ public class debug_menu extends Fragment {
 
         Button debug_create_session_button = view.findViewById(R.id.debug_create_session_button);
         TextView debug_select_route_id = view.findViewById(R.id.debug_select_route_id);
+        TextView debug_generated_session_id = view.findViewById(R.id.debug_generated_session_id);
         debug_create_session_button.setOnClickListener(v -> {
 
             ObjectMapper objectMapper = new ObjectMapper();
-            RequestCreateSession requestCreateSession = new RequestCreateSession(UUID.randomUUID().toString(), debug_select_route_id.getText().toString());
+            String session_id_generated = UUID.randomUUID().toString();
+            RequestCreateSession requestCreateSession = new RequestCreateSession(session_id_generated, debug_select_route_id.getText().toString());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    debug_generated_session_id.setText(session_id_generated);
+                }
+            });
             try {
                 String requestBodyStr = objectMapper.writeValueAsString(requestCreateSession);
                 Request request = new Request.Builder()
