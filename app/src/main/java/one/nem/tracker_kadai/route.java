@@ -10,21 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import okhttp3.HttpUrl.Builder;
 
 
 public class route extends Fragment {
@@ -69,18 +66,27 @@ public class route extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) {
-                final String response_body = response.body().toString();
-                Log.d("debug", response_body);
-                ObjectMapper objectMapper = new ObjectMapper();
                 try {
+                    final String response_body = response.body().string();
+                    Log.d("debug", response_body);
+                    ObjectMapper objectMapper = new ObjectMapper();
                     ResponseRoutePoint responseRoutePoint = objectMapper.readValue(response_body, ResponseRoutePoint.class);
 
-                    Log.d("debug", String.valueOf(responseRoutePoint.length));
+                    Log.d("debug", String.valueOf(responseRoutePoint.route.get(0).coordinate));
 
                 } catch (IOException e) {
-                    Log.d("debug", "IOException"+e);
+                    e.printStackTrace();
                 }
             }
         });
     }
+
+//    public List<String> convertPointListToList (ResponseRoutePoint responseRoutePoint) { //まだテスト用なのでIDとかは追加してないはず
+//        List<String> pointNameList = new ArrayList<>();
+//        for(int i = 0; i < responseRoutePoint.length; i++) {
+//            pointNameList.add(responseRouteList.routes.get(i).route_name);
+//        }
+//        return pointNameList;
+//    }
+    //なしでできるかもしれないのでとりあえず
 }
