@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".add_session">
 
-    <TextView
-        android:id="@+id/add_session_debug"
-        android:layout_width="208dp"
-        android:layout_height="100dp"
-        android:text="TextView" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_refresh_route"
         android:layout_width="wrap_content"
@@ -22,5 +16,10 @@
         android:layout_margin="16dp"
         android:focusable="true"
         android:contentDescription="Refresh" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/add_session_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>
