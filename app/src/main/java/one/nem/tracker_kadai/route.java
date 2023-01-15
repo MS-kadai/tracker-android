@@ -48,9 +48,6 @@ public class route extends Fragment {
             public void onClick(View buttonView) {
                 setRoutePointsToRecyclerView(editText_route_id.getText().toString(), view, handler);
             }
-
-            // OkHttp3でリクエスト飛ばす部分（後でメソッド分ける）
-
         });
 
         return view;
@@ -66,22 +63,14 @@ public class route extends Fragment {
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.d("debug", "onFailure");
+                //時間があったらエラー処理書く
             }
 
             @Override
             public void onResponse(Call call, Response response) {
                 try {
                     final String response_body = response.body().string();
-                    Log.d("debug", response_body);
                     ObjectMapper objectMapper = new ObjectMapper();
-
-//                    debug
-                                    List<String> testList = new ArrayList<>();
-                                    testList.add ("test1");
-                                    testList.add ("test2");
-                                    testList.add ("test3");
-                                    testList.add ("test4");
 
                     ResponseRoutePoint responseRoutePoint = objectMapper.readValue(response_body, ResponseRoutePoint.class);
                     List<String> pointNameList = new ArrayList<>();
@@ -102,21 +91,10 @@ public class route extends Fragment {
                         }
                     });
 
-                    Log.d("debug", String.valueOf(responseRoutePoint.route.get(0).coordinate));
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
     }
-
-//    public List<String> convertPointListToList (ResponseRoutePoint responseRoutePoint) { //まだテスト用なのでIDとかは追加してないはず
-//        List<String> pointNameList = new ArrayList<>();
-//        for(int i = 0; i < responseRoutePoint.length; i++) {
-//            pointNameList.add(responseRouteList.routes.get(i).route_name);
-//        }
-//        return pointNameList;
-//    }
-    //なしでできるかもしれないのでとりあえず
 }
