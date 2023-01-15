@@ -50,12 +50,18 @@ public class debug_menu extends Fragment {
     public void okHttpRequest (Request request,View view) {
         OkHttpClient okHttpClient = new OkHttpClient();
         TextView textView = view.findViewById(R.id.debug_server_version);
+        TextView debug_textView_response = view.findViewById(R.id.debug_textView_response);
         final Handler handler = new Handler(Looper.getMainLooper());
         ObjectMapper objectMapper = new ObjectMapper();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull  Call call, @NonNull IOException e){
-
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        debug_textView_response.setText("onFailure: "+ e.getMessage());
+                    }
+                });
             }
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
@@ -79,6 +85,16 @@ public class debug_menu extends Fragment {
 //                    Log.d("debug", "IOException: " + e);
 //                }
                 Log.d("debug", "onResponse: " + response);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            debug_textView_response.setText("onResponse: "+response.body().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         });
     }
