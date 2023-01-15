@@ -94,7 +94,7 @@ public class route extends Fragment {
                             RecyclerView route_recycler_view = view.findViewById(R.id.route_recycler_view);
                             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
                             route_recycler_view.setLayoutManager(layoutManager);
-                            RecyclerView.Adapter<PointListAdapter.PointListViewHolder> pointListAdapter = new PointListAdapter(pointNameList);
+                            RecyclerView.Adapter<PointListAdapter.PointListViewHolder> pointListAdapter = new PointListAdapter(pointNameList, pointCoordinateList);
                             route_recycler_view.setAdapter(pointListAdapter);
                         }
                     });

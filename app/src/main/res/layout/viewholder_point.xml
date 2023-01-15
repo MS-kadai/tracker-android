@@ -28,7 +28,7 @@
                 android:textSize="24dp" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/route_point_coordinates"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView" />

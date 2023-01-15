@@ -13,20 +13,24 @@ import java.util.List;
 
 public class PointListAdapter extends RecyclerView.Adapter<PointListAdapter.PointListViewHolder>  {
 
-    private List<String> rowDataList;
+    private List<String> rowDataPointNameList;
+    private List<String> rowDataCoordinateList;
     
-    public PointListAdapter(List<String> rowDataList) {
-        this.rowDataList = rowDataList;
+    public PointListAdapter(List<String> rowDataPointNameList, List<String> rowDataCoordinateList) {
+        this.rowDataPointNameList = rowDataPointNameList;
+        this.rowDataCoordinateList = rowDataCoordinateList;
     }
     
-    public class PointListViewHolder extends RecyclerView.ViewHolder {
+    public static class PointListViewHolder extends RecyclerView.ViewHolder {
         
         TextView pointNameText;
+        TextView pointCoordinateText;
         
         
         PointListViewHolder(@NonNull View itemView) {
             super(itemView);
             pointNameText = itemView.findViewById(R.id.route_point_name);
+            pointCoordinateText = itemView.findViewById(R.id.route_point_coordinates);
         }
     }
     
@@ -39,11 +43,12 @@ public class PointListAdapter extends RecyclerView.Adapter<PointListAdapter.Poin
     
     @Override
     public void onBindViewHolder(@NonNull PointListViewHolder holder, int position) {
-        holder.pointNameText.setText(rowDataList.get(position));
+        holder.pointNameText.setText(rowDataPointNameList.get(position));
+        holder.pointCoordinateText.setText(rowDataCoordinateList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return rowDataList.size();
+        return rowDataPointNameList.size();
     }
 }
