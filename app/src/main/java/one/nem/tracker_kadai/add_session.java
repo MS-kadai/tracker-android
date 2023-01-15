@@ -45,7 +45,6 @@ public class add_session extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_add_session, container, false);
-
         final Handler handler = new Handler(Looper.getMainLooper());
         FloatingActionButton fab_refresh_route_list = view.findViewById(R.id.fab_refresh_route);
 
