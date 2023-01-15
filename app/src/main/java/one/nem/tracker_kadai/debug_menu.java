@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.util.Log;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,7 +42,7 @@ public class debug_menu extends Fragment {
         OkHttpClient okHttpClient = new OkHttpClient();
         TextView textView = view.findViewById(R.id.debug_server_version);
         final Handler handler = new Handler(Looper.getMainLooper());
-
+        ObjectMapper objectMapper = new ObjectMapper();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull  Call call, @NonNull IOException e){
@@ -49,19 +52,23 @@ public class debug_menu extends Fragment {
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 try{
                     final String jsonStr = response.body().string();
-                    JSONObject json = new JSONObject(jsonStr);
-                    final String status = json.getString("date_time");
+//                    JSONObject json = new JSONObject(jsonStr);
+//                    final String status = json.getString("date_time");
+
+                    ResponseServerDateTime responseServerDateTime = objectMapper.readValue(jsonStr, ResponseServerDateTime.class);
+
+                    Log.d("DEBUG", responseServerDateTime.date_time);
 
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            textView.setText(status);
+                            textView.setText(responseServerDateTime.date_time);
                         }
                     });
 
                 }
-                catch (JSONException | IOException e){
-
+                catch ( IOException e){
+                    Log.d("debug", "IOException: " + e);
                 }
             }
         });

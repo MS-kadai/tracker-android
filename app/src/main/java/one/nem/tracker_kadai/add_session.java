@@ -48,7 +48,7 @@ public class add_session extends Fragment {
 
         final Handler handler = new Handler(Looper.getMainLooper());
         FloatingActionButton fab_refresh_route_list = view.findViewById(R.id.fab_refresh_route);
-        TextView routes_textView = view.findViewById(R.id.add_session_debug);
+        TextView add_session_debug_textView = view.findViewById(R.id.add_session_debug);
 
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -77,10 +77,12 @@ public class add_session extends Fragment {
 
                             ResponseRouteList responseRouteList = objectMapper.readValue(jsonStr, ResponseRouteList.class);
 
+                            int debug_length_int = responseRouteList.length;
+
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    routes_textView.setText(responseRouteList.length);
+                                    add_session_debug_textView.setText(String.valueOf(debug_length_int));
                                 }
                             });
 
