@@ -13,9 +13,9 @@ import java.util.List;
 
 public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.RouteListViewHolder> {
 
-    private List<RowData> rowDataList;
+    private List<String> rowDataList;
 
-    public RouteListAdapter(List<RowData> rowDataList) {
+    public RouteListAdapter(List<String> rowDataList) {
         this.rowDataList = rowDataList;
     }
 
@@ -38,7 +38,7 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
 
     @Override
     public void onBindViewHolder(@NonNull RouteListViewHolder holder, int position) {
-        holder.titleText.setText(rowDataList.testTitle);
+        holder.titleText.setText(rowDataList.get(position));
     }
 
     @Override

@@ -4,15 +4,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -28,7 +27,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.annotation.*;
 
 public class add_session extends Fragment {
 
@@ -47,10 +45,14 @@ public class add_session extends Fragment {
 
         final Handler handler = new Handler(Looper.getMainLooper());
         FloatingActionButton fab_refresh_route_list = view.findViewById(R.id.fab_refresh_route);
-        RecyclerView add_session_recycler_view = view.findViewById(R.id.add_session_recycler_view);
-
 
         ObjectMapper objectMapper = new ObjectMapper();
+
+        RecyclerView add_session_recycler_view = view.findViewById(R.id.add_session_recycler_view);
+        add_session_recycler_view.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.Adapter<RouteListAdapter.RouteListViewHolder> routeListAdapter = new RouteListAdapter();
+        add_session_recycler_view.setAdapter(routeListAdapter);
 
         fab_refresh_route_list.setOnClickListener(new View.OnClickListener() {
             @Override
