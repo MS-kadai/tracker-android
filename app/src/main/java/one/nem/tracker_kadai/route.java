@@ -74,13 +74,13 @@ public class route extends Fragment {
 
                     ResponseRoutePoint responseRoutePoint = objectMapper.readValue(response_body, ResponseRoutePoint.class);
                     List<String> pointNameList = new ArrayList<>();
-                    List<Integer> pointIdList = new ArrayList<>();
+                    List<String> pointIdListStr = new ArrayList<>();
                     List<String> pointCoordinateList = new ArrayList<>();
                     for(int i = 0; i < responseRoutePoint.length; i++) {
                         pointNameList.add(responseRoutePoint.route.get(i).point_name);
                     }
                     for(int i = 0; i < responseRoutePoint.length; i++) {
-                        pointIdList.add(responseRoutePoint.route.get(i).point_id);
+                        pointIdListStr.add(String.valueOf(responseRoutePoint.route.get(i).point_id));
                     }
                     for(int i = 0; i < responseRoutePoint.length; i++) {
                         pointCoordinateList.add(responseRoutePoint.route.get(i).coordinate);
@@ -94,7 +94,7 @@ public class route extends Fragment {
                             RecyclerView route_recycler_view = view.findViewById(R.id.route_recycler_view);
                             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
                             route_recycler_view.setLayoutManager(layoutManager);
-                            RecyclerView.Adapter<PointListAdapter.PointListViewHolder> pointListAdapter = new PointListAdapter(pointNameList, pointCoordinateList);
+                            RecyclerView.Adapter<PointListAdapter.PointListViewHolder> pointListAdapter = new PointListAdapter(pointNameList, pointCoordinateList, pointIdListStr);
                             route_recycler_view.setAdapter(pointListAdapter);
                         }
                     });
