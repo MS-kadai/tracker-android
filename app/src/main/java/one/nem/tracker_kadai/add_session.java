@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -15,12 +16,10 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -48,7 +47,8 @@ public class add_session extends Fragment {
 
         final Handler handler = new Handler(Looper.getMainLooper());
         FloatingActionButton fab_refresh_route_list = view.findViewById(R.id.fab_refresh_route);
-        TextView add_session_debug_textView = view.findViewById(R.id.add_session_debug);
+        RecyclerView add_session_recycler_view = view.findViewById(R.id.add_session_recycler_view);
+
 
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -64,17 +64,12 @@ public class add_session extends Fragment {
                 okHttpClient.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NonNull Call call, @NonNull IOException e){
-                        Log.d("debug", "onFailure: " + e);
+                        //時間があったらエラー処理も書く
                     }
                     @Override
                     public void onResponse(@NonNull Call call, @NonNull Response response) {
                         try {
                             final String jsonStr = response.body().string();
-//                            JSONObject json = new JSONObject(jsonStr);
-//                            final String length = json.getString("length");
-//
-//                            Log.d("Tag", length+response.body().toString());
-
                             ResponseRouteList responseRouteList = objectMapper.readValue(jsonStr, ResponseRouteList.class);
 
                             int debug_length_int = responseRouteList.length;
@@ -82,13 +77,10 @@ public class add_session extends Fragment {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    add_session_debug_textView.setText(responseRouteList.routes.get(0).route_name);
+
+                                    //あとで
                                 }
                             });
-
-//                                    for (int i = 0; i > length; i++){
-//
-//                                    }
 
                         } catch (IOException e) {
                             e.printStackTrace();

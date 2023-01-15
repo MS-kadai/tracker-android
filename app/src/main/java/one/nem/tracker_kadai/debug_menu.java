@@ -52,8 +52,7 @@ public class debug_menu extends Fragment {
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 try{
                     final String jsonStr = response.body().string();
-//                    JSONObject json = new JSONObject(jsonStr);
-//                    final String status = json.getString("date_time");
+
 
                     ResponseServerDateTime responseServerDateTime = objectMapper.readValue(jsonStr, ResponseServerDateTime.class);
 
