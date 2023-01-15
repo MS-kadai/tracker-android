@@ -67,7 +67,7 @@ public class debug_session_update extends Fragment {
 
         final Handler handler = new Handler(Looper.getMainLooper());
 
-        RequestSessionUpdate requestSessionUpdate = new RequestSessionUpdate(u_debug_editText_session_id.getText().toString(), LocalDateTime.now().toString() );
+        RequestSessionUpdate requestSessionUpdate = new RequestSessionUpdate(u_debug_editText_point_id.getText().toString(), LocalDateTime.now().toString() );
         String requestUrl = "http://10.0.2.2:8000/session/"+u_debug_editText_session_id.getText().toString()+"/add";
         try {
             String requestBody = objectMapper.writeValueAsString(requestSessionUpdate);
