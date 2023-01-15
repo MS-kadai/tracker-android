@@ -46,11 +46,11 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
         //test
-        Fragment newFragment = null;
-        newFragment = new no_content();
-        getSupportFragmentManager().beginTransaction().replace(
-                R.id.rightFrame, newFragment
-        ).addToBackStack(null).commit();
+//        Fragment newFragment = null;
+//        newFragment = new no_content();
+//        getSupportFragmentManager().beginTransaction().replace(
+//                R.id.rightFrame, newFragment
+//        ).addToBackStack(null).commit();
 
 
     }

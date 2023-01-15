@@ -14,6 +14,7 @@ import java.util.List;
 public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.RouteListViewHolder> {
 
     private List<String> rowDataList;
+    private View.OnClickListener listener;
 
     public RouteListAdapter(List<String> rowDataList) {
         this.rowDataList = rowDataList;
@@ -39,6 +40,16 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
     @Override
     public void onBindViewHolder(@NonNull RouteListViewHolder holder, int position) {
         holder.titleText.setText(rowDataList.get(position));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick(view);
+            }
+        });
+    }
+
+    public void setOnItemClickListener(View.OnClickListener listener) {
+        this.listener = listener;
     }
 
     @Override

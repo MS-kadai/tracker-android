@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 import java.io.IOException;
+import java.util.UUID;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -48,25 +49,26 @@ public class debug_menu extends Fragment {
             }
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
-                try{
-                    final String jsonStr = response.body().string();
-
-
-                    ResponseServerDateTime responseServerDateTime = objectMapper.readValue(jsonStr, ResponseServerDateTime.class);
-
-                    Log.d("DEBUG", responseServerDateTime.date_time);
-
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            textView.setText(responseServerDateTime.date_time);
-                        }
-                    });
-
-                }
-                catch ( IOException e){
-                    Log.d("debug", "IOException: " + e);
-                }
+//                try{
+//                    final String jsonStr = response.body().string();
+//
+//
+//                    ResponseServerDateTime responseServerDateTime = objectMapper.readValue(jsonStr, ResponseServerDateTime.class);
+//
+//                    Log.d("DEBUG", responseServerDateTime.date_time);
+//
+//                    handler.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            textView.setText(responseServerDateTime.date_time);
+//                        }
+//                    });
+//
+//                }
+//                catch ( IOException e){
+//                    Log.d("debug", "IOException: " + e);
+//                }
+                Log.d("debug", "onResponse: " + response);
             }
         });
     }
@@ -110,6 +112,19 @@ public class debug_menu extends Fragment {
             changeRightFrame(new route());
         });
 
+        //セッション作るテストのやつ
+
+        Button debug_create_session_button = view.findViewById(R.id.debug_create_session_button);
+        TextView debug_select_route_id = view.findViewById(R.id.debug_select_route_id);
+        debug_create_session_button.setOnClickListener(v -> {
+            Request request = new Request.Builder()
+                    .url("http://10.0.2.2:8000/session/create")
+                    .addHeader("session_id", UUID.randomUUID().toString())
+                    .addHeader("route_id", debug_select_route_id.getText().toString())
+                    .build();
+
+            okHttpRequest(request, view);
+        });
         return view;
     }
 

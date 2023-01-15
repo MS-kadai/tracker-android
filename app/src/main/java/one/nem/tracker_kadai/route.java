@@ -22,7 +22,7 @@ public class route extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_debug_menu, container, false);
+        View view = inflater.inflate(R.layout.fragment_route, container, false);
 
 
         return view;

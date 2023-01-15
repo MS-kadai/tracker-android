@@ -127,6 +127,9 @@ public class add_session extends Fragment {
         add_session_recycler_view.setLayoutManager(layoutManager);
         RecyclerView.Adapter<RouteListAdapter.RouteListViewHolder> routeListAdapter = new RouteListAdapter(routeNameList);
         add_session_recycler_view.setAdapter(routeListAdapter);
+
+        //とりあえずここに置いとくだけ
+
     }
 
 }
