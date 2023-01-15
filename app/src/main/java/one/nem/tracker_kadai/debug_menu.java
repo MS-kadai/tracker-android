@@ -26,8 +26,10 @@ import java.util.UUID;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.HttpUrl.Builder;
 
@@ -123,17 +125,26 @@ public class debug_menu extends Fragment {
         Button debug_create_session_button = view.findViewById(R.id.debug_create_session_button);
         TextView debug_select_route_id = view.findViewById(R.id.debug_select_route_id);
         debug_create_session_button.setOnClickListener(v -> {
-            Map<String, String> params = new HashMap<>();
-            params.put("route_id", debug_select_route_id.getText().toString());
-            params.put("session_id", UUID.randomUUID().toString());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { //こんなのじゃだめなので後で手書きするか要件変える
-                params.forEach(urlBuilder::addQueryParameter);
-            }
+//            Map<String, String> params = new HashMap<>();
+//            params.put("route_id", debug_select_route_id.getText().toString());
+//            params.put("session_id", UUID.randomUUID().toString());
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { //こんなのじゃだめなので後で手書きするか要件変える
+//                params.forEach(urlBuilder::addQueryParameter);
+//            }
+//
+//            Log.d("debug", "onCreateView: " + urlBuilder.build());
+//            Request request = new Request.Builder()
+//                    .url(urlBuilder.build())
+//                    .addHeader("Content-Type", "application/json")
+//                    .build();
+//
+//            okHttpRequest(request, view);
 
-            Log.d("debug", "onCreateView: " + urlBuilder.build());
+            MediaType MIMEType = MediaType.parse("application/json; charset=utf-8");
+            RequestBody requestBody = RequestBody.create (MIMEType, "{\"route_id\": \"" + debug_select_route_id.getText().toString() + "\", \"session_id\": \"" + UUID.randomUUID().toString() + "\"}");
             Request request = new Request.Builder()
-                    .url(urlBuilder.build())
-                    .addHeader("Content-Type", "application/json")
+                    .url("http://10.0.2.2:8000/session/create")
+                    .post(requestBody)
                     .build();
 
             okHttpRequest(request, view);
