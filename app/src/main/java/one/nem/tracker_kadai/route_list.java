@@ -44,23 +44,29 @@ public class route_list extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_route_list, container, false);
 
-        setRouteListFromServer();
-        setRouteListToRecyclerView(view, convertingToList());
+        setRouteListFromServer(view);
+//        setRouteListToRecyclerView(view, convertingToList());
 
         return view;
     }
 
-    public void setRouteListFromServer(){
+    public void setRouteListFromServer(View view){
         ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(clientConfigs.target_url + "route/list")
                 .build();
 
+        //debug
+        Log.d("debug", clientConfigs.target_url + "route/list");
+
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e){
                 //エラー処理書かないといけない
+
+                //debug
+                Log.d("debug", "onFailure: " + e.getMessage());
             }
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
@@ -69,8 +75,12 @@ public class route_list extends Fragment {
                     ObjectMapper mapper = new ObjectMapper();
                     clientConfigs.responseRouteList = mapper.readValue(json, ResponseRouteList.class);
                     Log.d("route_list", "onResponse: " + clientConfigs.responseRouteList);
+                    setRouteListToRecyclerView(view, convertingToList()); //めんどくさいのでとりあえずこれで...
                 } catch (IOException e) {
                     e.printStackTrace();
+
+                    //debug
+                    Log.d("debug", "onResponse: " + e.getMessage());
                 }
             }
         });
