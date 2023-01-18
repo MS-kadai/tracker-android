@@ -149,6 +149,12 @@
             android:layout_height="wrap_content"
             android:text="response" />
 
+        <Button
+            android:id="@+id/debug_button_read_variable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="read variable test" />
+
     </LinearLayout>
 
 </FrameLayout>

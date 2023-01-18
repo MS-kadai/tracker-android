@@ -1,6 +1,5 @@
 package one.nem.tracker_kadai;
 
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,22 +18,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.HttpUrl.Builder;
 
 
 public class debug_menu extends Fragment {
@@ -42,8 +35,6 @@ public class debug_menu extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
 
     }
 
@@ -170,6 +161,15 @@ public class debug_menu extends Fragment {
                 e.printStackTrace();
             }
 
+        });
+
+        //変数読み出すテストのやつ
+
+        Button debug_read_read_variable = view.findViewById(R.id.debug_button_read_variable);
+
+        debug_read_read_variable.setOnClickListener(v -> {
+            ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
+            Log.d("DEBUG",clientConfigs.target_url);
         });
         return view;
     }

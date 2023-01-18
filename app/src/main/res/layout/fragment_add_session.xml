@@ -7,19 +7,54 @@
     tools:context=".add_session">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_refresh_route"
+        android:id="@+id/fab_connect_server"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:src="@drawable/ic_baseline_refresh_24"
+        android:src="@drawable/ic_baseline_network_ping_24"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:focusable="true"
-        android:contentDescription="Refresh" />
+        android:contentDescription="Connect to server" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/add_session_recycler_view"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Base URL" />
+
+            <EditText
+                android:id="@+id/editText_target_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Target address"
+                android:inputType="text"
+                android:text="http://10.0.2.2:8000/" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="hoge" />
+        </LinearLayout>
+    </LinearLayout>
 
 </FrameLayout>
