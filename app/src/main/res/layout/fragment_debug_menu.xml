@@ -86,11 +86,11 @@
                 android:textSize="8dp" />
 
             <Button
-                android:id="@+id/debug_r_hoge1"
+                android:id="@+id/debug_r_route_overview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="NONE"
+                android:text="route_overview"
                 android:textSize="8dp" />
 
             <Button

@@ -53,8 +53,15 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="hoge" />
+                android:text="frame↓" />
         </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/add_session_underFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
     </LinearLayout>
 
 </FrameLayout>

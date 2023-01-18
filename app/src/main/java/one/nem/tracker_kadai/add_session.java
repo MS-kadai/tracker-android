@@ -51,7 +51,7 @@ public class add_session extends Fragment {
         FloatingActionButton fab_connect_server = view.findViewById(R.id.fab_connect_server);
         fab_connect_server.setOnClickListener(v -> {
             setConfigToVariable(view);
-            changeRightFrame(new route_list());
+            changeUnderFrame(new route_list());
         });
 
 
@@ -65,9 +65,9 @@ public class add_session extends Fragment {
         clientConfigs.target_url = editText_target_address.getText().toString();
     }
 
-    public void changeRightFrame(Fragment targetFragment){ //渡されたfragmentを右のフレームに表示する
+    public void changeUnderFrame(Fragment targetFragment){ //下のフレームに表示する
         getParentFragmentManager().beginTransaction().replace(
-                R.id.rightFrame , targetFragment).commit();
+                R.id.add_session_underFrame , targetFragment).commit();
     }
 
 
