@@ -13,10 +13,11 @@ import java.util.List;
 public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.RouteListViewHolder> {
 
     private List<String> rowDataList;
-    private View.OnClickListener listener;
+    final SelectRouteInterface selectRouteInterface;
 
-    public RouteListAdapter(List<String> rowDataList) {
+    public RouteListAdapter(List<String> rowDataList, SelectRouteInterface selectRouteInterface) {
         this.rowDataList = rowDataList;
+        this.selectRouteInterface = selectRouteInterface;
     }
 
     static class RouteListViewHolder extends RecyclerView.ViewHolder {
@@ -24,14 +25,14 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
         SelectRouteInterface listener;
         TextView titleText;
 
-        RouteListViewHolder(@NonNull View itemView, View.OnClickListener listener) {
+        RouteListViewHolder(@NonNull View itemView, SelectRouteInterface listener) {
             super(itemView);
             titleText = itemView.findViewById(R.id.select_route_route_name);
-            this.listener = this.listener;
+            this.listener = listener;
         }
 
         public void onBind(String rowData) {
-            titleText.setText(rowData);
+//            titleText.setText(rowData);
             titleText.setOnClickListener(v -> {
                 listener.onSelect(rowData);
             });
@@ -42,7 +43,7 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
     @Override
     public RouteListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_select_route, parent, false);
-        return new RouteListViewHolder(view, listener);
+        return new RouteListViewHolder(view, selectRouteInterface);
     }
 
     @Override

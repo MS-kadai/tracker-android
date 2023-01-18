@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,12 +22,9 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.Route;
 
 public class route_list extends Fragment {
 
@@ -47,6 +43,13 @@ public class route_list extends Fragment {
         setRouteListFromServer(view);
 //        setRouteListToRecyclerView(view, convertingToList());
 
+        SelectRouteInterface selectRouteInterface = new SelectRouteInterface() {
+            @Override
+            public void onSelect(String item) {
+                Log.d("route_list", "onSelect: " + item);
+//                changeRightFrame(new add_session(item));
+            }
+        };
         return view;
     }
 
@@ -75,7 +78,7 @@ public class route_list extends Fragment {
                     ObjectMapper mapper = new ObjectMapper();
                     clientConfigs.responseRouteList = mapper.readValue(json, ResponseRouteList.class);
                     Log.d("route_list", "onResponse: " + clientConfigs.responseRouteList);
-                    setRouteListToRecyclerView(view, convertingToList()); //めんどくさいのでとりあえずこれで...
+                    setRouteListToRecyclerView(view, convertingToList()); //めんどくさいのでとりあえずこれでごまかす
                 } catch (IOException e) {
                     e.printStackTrace();
 
@@ -103,7 +106,7 @@ public class route_list extends Fragment {
             @Override
             public void run() {
                 RecyclerView recyclerView = view.findViewById(R.id.recyclerView_route_list);
-                RecyclerView.Adapter<RouteListAdapter.RouteListViewHolder> routeListViewHolderAdapter = new RouteListAdapter(routeNameList);
+                RecyclerView.Adapter<RouteListAdapter.RouteListViewHolder> routeListViewHolderAdapter = new RouteListAdapter(routeNameList, item -> Log.d("route_list", "onSelect: " + item));
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(routeListViewHolderAdapter);
