@@ -49,13 +49,16 @@ public class add_session extends Fragment {
 
         //URLをClientConfigsにつっこむやつ
         FloatingActionButton fab_connect_server = view.findViewById(R.id.fab_connect_server);
-        EditText editText_target_address = view.findViewById(R.id.editText_target_url);
         fab_connect_server.setOnClickListener(v -> {
-            ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
-            clientConfigs.target_url = editText_target_address.getText().toString();
+            setConfigToVariable(view);
         });
 
         return view;
+    }
+    public void setConfigToVariable(View view) {
+        EditText editText_target_address = view.findViewById(R.id.editText_target_url);
+        ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
+        clientConfigs.target_url = editText_target_address.getText().toString();
     }
 
 
