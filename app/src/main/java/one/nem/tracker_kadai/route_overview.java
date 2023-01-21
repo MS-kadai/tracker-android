@@ -39,7 +39,10 @@ public class route_overview extends Fragment {
         View view = inflater.inflate(R.layout.fragment_route_overview, container, false);
         final Handler handler = new Handler(Looper.getMainLooper());
 
-        setRoutePointsToRecyclerView("1", view, handler); //仮置きの1
+        ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
+
+
+        setRoutePointsToRecyclerView(String.valueOf(clientConfigs.preview_route_id), view, handler); //仮置きの1
 
 
         return view;
