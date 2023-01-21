@@ -106,7 +106,10 @@ public class route_list extends Fragment {
             @Override
             public void run() {
                 RecyclerView recyclerView = view.findViewById(R.id.recyclerView_route_list);
-                RecyclerView.Adapter<RouteListAdapter.RouteListViewHolder> routeListViewHolderAdapter = new RouteListAdapter(routeNameList, item -> Log.d("route_list", "onSelect: " + item));
+                RecyclerView.Adapter<RouteListAdapter.RouteListViewHolder> routeListViewHolderAdapter = new RouteListAdapter(routeNameList, item -> {
+                    Log.d("route_list", "onSelect: " + item);
+
+                });
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(routeListViewHolderAdapter);
@@ -114,4 +117,6 @@ public class route_list extends Fragment {
         });
 
     }
+
+
 }
