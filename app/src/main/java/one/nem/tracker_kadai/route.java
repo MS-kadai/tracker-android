@@ -116,7 +116,7 @@ public class route extends Fragment {
                                 Log.d("debug", "selected_point_name: " + pointNameList.get(Integer.parseInt(item) - 1));
 
                                 //どう考えてもUIスレッドでやらなくていいので時間があったら引き抜く
-                                changeRightFrame(new point_map());
+                                changeRightFrame(new point_overview());
 
                             });
                             route_recycler_view.setAdapter(pointListAdapter);
