@@ -14,13 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -108,7 +104,19 @@ public class route extends Fragment {
                             RecyclerView route_recycler_view = view.findViewById(R.id.route_recycler_view);
                             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
                             route_recycler_view.setLayoutManager(layoutManager);
-                            RecyclerView.Adapter<PointListAdapter.PointListViewHolder> pointListAdapter = new PointListAdapter(pointNameList, pointCoordinateList, pointIdListStr);
+                            RecyclerView.Adapter<PointListAdapter.PointListViewHolder> pointListAdapter = new PointListAdapter(pointNameList, pointCoordinateList, pointIdListStr, item -> {
+                                ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
+                                clientConfigs.selected_point_id = Integer.parseInt(item);
+                                clientConfigs.selected_point_coordinate = pointCoordinateList.get(Integer.parseInt(item));
+
+                                //debug
+                                Log.d("debug", "selected_point_id: " + item);
+                                Log.d("debug", "selected_point_coordinate: " + pointCoordinateList.get(Integer.parseInt(item)));
+
+                                //どう考えてもUIスレッドでやらなくていいので時間があったら引き抜く
+                                changeRightFrame(new point_map());
+
+                            });
                             route_recycler_view.setAdapter(pointListAdapter);
                         }
                     });
@@ -118,5 +126,9 @@ public class route extends Fragment {
                 }
             }
         });
+    }
+    public void changeRightFrame(Fragment targetFragment){ //渡されたfragmentを右のフレームに表示する
+        getParentFragmentManager().beginTransaction().replace(
+                R.id.rightFrame , targetFragment).commit();
     }
 }

@@ -31,9 +31,17 @@ public class point_map extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//            LatLng sydney = new LatLng(-34, 151);
+//            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
+            String target_coordinate = clientConfigs.selected_point_coordinate;
+            String[] coordinate = target_coordinate.split(",");
+            LatLng target = new LatLng(Double.parseDouble(coordinate[0]), Double.parseDouble(coordinate[1]));
+            googleMap.addMarker(new MarkerOptions().position(target).title("Next"));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(target));
+            googleMap.setMaxZoomPreference(17.0f);
+            googleMap.setMinZoomPreference(18.0f);
         }
     };
 

@@ -179,6 +179,15 @@ public class debug_menu extends Fragment {
             ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
             Log.d("DEBUG",clientConfigs.target_url);
         });
+
+        //マップのテストするやつ
+        Button debug_map_test = view.findViewById(R.id.debug_button_map_test);
+        debug_map_test.setOnClickListener(v -> {
+            changeRightFrame(new point_map());
+
+            ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
+            clientConfigs.selected_point_coordinate = "35.087463217560575, 137.15620238263986";
+        });
         return view;
     }
 

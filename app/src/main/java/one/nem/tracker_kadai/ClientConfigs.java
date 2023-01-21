@@ -14,6 +14,10 @@ public class ClientConfigs extends Application {
 
     public String target_uuid;
 
+    public String selected_point_coordinate;
+
+    public int selected_point_id;
+
     @Override
     public void onCreate() {
         super.onCreate();

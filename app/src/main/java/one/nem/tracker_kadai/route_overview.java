@@ -98,7 +98,10 @@ public class route_overview extends Fragment {
                             RecyclerView route_overview_recyclerView = view.findViewById(R.id.route_overview_recyclerView);
                             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
                             route_overview_recyclerView.setLayoutManager(layoutManager);
-                            RecyclerView.Adapter<PointListAdapter.PointListViewHolder> pointListAdapter = new PointListAdapter(pointNameList, pointCoordinateList, pointIdListStr);
+                            RecyclerView.Adapter<PointListAdapter.PointListViewHolder> pointListAdapter = new PointListAdapter(pointNameList, pointCoordinateList, pointIdListStr, item -> {
+                                //ここにクリック時の処理を書く
+                                //とりあえずいま何もしなくても問題ないので後回し
+                            });
                             route_overview_recyclerView.setAdapter(pointListAdapter);
                         }
                     });
