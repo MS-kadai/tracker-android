@@ -12,11 +12,13 @@ import java.util.List;
 
 public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.RouteListViewHolder> {
 
-    private List<String> rowDataList;
+    private List<String> rowRouteNameList;
+    private List<String> rowRouteIdList;
     final SelectRouteInterface selectRouteInterface;
 
-    public RouteListAdapter(List<String> rowDataList, SelectRouteInterface selectRouteInterface) {
-        this.rowDataList = rowDataList;
+    public RouteListAdapter(List<String> rowRouteNameList, List<String> rowRouteIdList, SelectRouteInterface selectRouteInterface) {
+        this.rowRouteNameList = rowRouteNameList;
+        this.rowRouteIdList = rowRouteIdList;
         this.selectRouteInterface = selectRouteInterface;
     }
 
@@ -24,10 +26,12 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
 
         SelectRouteInterface listener;
         TextView titleText;
+        TextView routeIdText;
 
         RouteListViewHolder(@NonNull View itemView, SelectRouteInterface listener) {
             super(itemView);
             titleText = itemView.findViewById(R.id.select_route_route_name);
+            routeIdText = itemView.findViewById(R.id.select_route_route_id);
             this.listener = listener;
         }
 
@@ -48,16 +52,17 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
 
     @Override
     public void onBindViewHolder(@NonNull RouteListViewHolder holder, int position) {
-        holder.titleText.setText(rowDataList.get(position));
+        holder.titleText.setText(rowRouteNameList.get(position));
+        holder.routeIdText.setText(rowRouteIdList.get(position));
 
         if (holder instanceof RouteListViewHolder) {
-            ((RouteListViewHolder) holder).onBind(rowDataList.get(position));
+            ((RouteListViewHolder) holder).onBind(rowRouteIdList.get(position));
         }
     }
 
     @Override
     public int getItemCount() {
-        return rowDataList.size();
+        return rowRouteNameList.size();
     }
 
 }

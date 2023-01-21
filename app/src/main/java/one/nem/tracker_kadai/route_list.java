@@ -1,5 +1,7 @@
 package one.nem.tracker_kadai;
 
+import static java.lang.String.valueOf;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -78,7 +80,7 @@ public class route_list extends Fragment {
                     ObjectMapper mapper = new ObjectMapper();
                     clientConfigs.responseRouteList = mapper.readValue(json, ResponseRouteList.class);
                     Log.d("route_list", "onResponse: " + clientConfigs.responseRouteList);
-                    setRouteListToRecyclerView(view, convertingToList()); //めんどくさいのでとりあえずこれでごまかす
+                    setRouteListToRecyclerView(view, convertingToRouteNameList(), convertingToRouteIdList()); //めんどくさいのでとりあえずこれでごまかす
                 } catch (IOException e) {
                     e.printStackTrace();
 
@@ -90,7 +92,7 @@ public class route_list extends Fragment {
 
     }
 
-    public List<String> convertingToList(){ //取得失敗したときにnull投げ込むことにならないようにするべきかも
+    public List<String> convertingToRouteNameList(){ //取得失敗したときにnull投げ込むことにならないようにするべきかも
 
         ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
         List<String> routeNameList = new ArrayList<>();
@@ -100,13 +102,23 @@ public class route_list extends Fragment {
         return routeNameList;
     }
 
-    public void setRouteListToRecyclerView(View view, List<String> routeNameList){
+    public List<String> convertingToRouteIdList(){ //取得失敗したときにnull投げ込むことにならないようにするべきかも
+
+        ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
+        List<String> routeIdList = new ArrayList<>();
+        for (int i = 0; i < clientConfigs.responseRouteList.routes.size(); i++){
+            routeIdList.add(valueOf(clientConfigs.responseRouteList.routes.get(i).id));
+        }
+        return routeIdList;
+    }
+
+    public void setRouteListToRecyclerView(View view, List<String> routeNameList, List<String> routeIdList){
         final Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
                 RecyclerView recyclerView = view.findViewById(R.id.recyclerView_route_list);
-                RecyclerView.Adapter<RouteListAdapter.RouteListViewHolder> routeListViewHolderAdapter = new RouteListAdapter(routeNameList, item -> {
+                RecyclerView.Adapter<RouteListAdapter.RouteListViewHolder> routeListViewHolderAdapter = new RouteListAdapter(routeNameList, routeIdList,  item -> {
                     Log.d("route_list", "onSelect: " + item);
 
                 });
