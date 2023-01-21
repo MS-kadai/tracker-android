@@ -122,6 +122,7 @@ public class route_list extends Fragment {
                 RecyclerView.Adapter<RouteListAdapter.RouteListViewHolder> routeListViewHolderAdapter = new RouteListAdapter(routeNameList, routeIdList,  item -> {
                     Log.d("route_list", "onSelect: " + item);
                     clientConfigs.preview_route_id = Integer.parseInt(item);
+                    changeRightFrame(new route_overview());
 
                 });
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
@@ -130,6 +131,11 @@ public class route_list extends Fragment {
             }
         });
 
+    }
+
+    public void changeRightFrame(Fragment targetFragment){ //渡されたfragmentを右のフレームに表示する
+        getParentFragmentManager().beginTransaction().replace(
+                R.id.rightFrame , targetFragment).commit();
     }
 
 
