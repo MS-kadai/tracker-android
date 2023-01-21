@@ -16,6 +16,8 @@ public class ClientConfigs extends Application {
 
     public String selected_point_coordinate;
 
+    public String selected_point_name;
+
     public int selected_point_id;
 
     @Override

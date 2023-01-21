@@ -108,10 +108,12 @@ public class route extends Fragment {
                                 ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
                                 clientConfigs.selected_point_id = Integer.parseInt(item);
                                 clientConfigs.selected_point_coordinate = pointCoordinateList.get(Integer.parseInt(item) - 1);
+                                clientConfigs.selected_point_name = pointNameList.get(Integer.parseInt(item) - 1); //引き回さずにIDだけ渡してそれぞれで必要なの抜いた方がスマートかも？
 
                                 //debug
                                 Log.d("debug", "selected_point_id: " + item);
                                 Log.d("debug", "selected_point_coordinate: " + pointCoordinateList.get(Integer.parseInt(item) - 1));
+                                Log.d("debug", "selected_point_name: " + pointNameList.get(Integer.parseInt(item) - 1));
 
                                 //どう考えてもUIスレッドでやらなくていいので時間があったら引き抜く
                                 changeRightFrame(new point_map());
