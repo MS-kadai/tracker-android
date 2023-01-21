@@ -42,14 +42,15 @@ public class route_overview extends Fragment {
         ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
 
 
-        setRoutePointsToRecyclerView(String.valueOf(clientConfigs.preview_route_id), view, handler); //仮置きの1
+        setRoutePointsToRecyclerView(clientConfigs.target_url, String.valueOf(clientConfigs.preview_route_id), view, handler); //仮置きの1
 
 
         return view;
     }
-    public void setRoutePointsToRecyclerView(String route_id, View view, Handler handler) { //とりあえず流用して動作確認
+    public void setRoutePointsToRecyclerView(String base_url, String route_id, View view, Handler handler) { //とりあえず流用して動作確認
         OkHttpClient okHttpClient = new OkHttpClient();
-        String target_url = "http://10.0.2.2:8000/route/"+route_id; //URL組み立て
+        //String target_url = "http://10.0.2.2:8000/route/"+route_id; //URL組み立て
+        String target_url = base_url + "route/" + route_id;
         Request request = new Request.Builder()
                 .url(target_url)
                 .build();
