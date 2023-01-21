@@ -94,11 +94,11 @@
                 android:textSize="8dp" />
 
             <Button
-                android:id="@+id/debug_r_hoge2"
+                android:id="@+id/debug_r_point_map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="NONE"
+                android:text="POINT_MAP"
                 android:textSize="8dp" />
 
             <Button

@@ -21,4 +21,5 @@ public class point_overview extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_point_overview, container, false);
         return view;
+    }
 }
