@@ -25,11 +25,11 @@
                 android:layout_gravity="center"/>
 
             <Button
-                android:id="@+id/route_overview_button_set_active"
+                android:id="@+id/route_overview_button_create_session"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Set Active" />
+                android:text="Create Session" />
 
         </LinearLayout>
 

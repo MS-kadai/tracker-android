@@ -1,5 +1,7 @@
 package one.nem.tracker_kadai;
 
+import static java.lang.String.valueOf;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,12 +13,14 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -42,8 +46,13 @@ public class route_overview extends Fragment {
         ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
 
 
-        setRoutePointsToRecyclerView(clientConfigs.target_url, String.valueOf(clientConfigs.preview_route_id), view, handler); //仮置きの1
+        setRoutePointsToRecyclerView(clientConfigs.target_url, valueOf(clientConfigs.preview_route_id), view, handler); //仮置きの1
 
+        Button button_create_session = view.findViewById(R.id.route_overview_button_create_session);
+
+        button_create_session.setOnClickListener(v -> {
+            createSession();
+        });
 
         return view;
     }
@@ -75,7 +84,7 @@ public class route_overview extends Fragment {
                         pointNameList.add(responseRoutePoint.route.get(i).point_name);
                     }
                     for(int i = 0; i < responseRoutePoint.length; i++) {
-                        pointIdListStr.add(String.valueOf(responseRoutePoint.route.get(i).point_id));
+                        pointIdListStr.add(valueOf(responseRoutePoint.route.get(i).point_id));
                     }
                     for(int i = 0; i < responseRoutePoint.length; i++) {
                         pointCoordinateList.add(responseRoutePoint.route.get(i).coordinate);
@@ -100,5 +109,31 @@ public class route_overview extends Fragment {
             }
         });
     }
+
+    public void createSession(){ //この名前だけど画面切り替えも兼ねてます
+        ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
+        clientConfigs.selected_route_id = clientConfigs.preview_route_id;
+
+        //UUID生成してリクエストボディを組み立てるやつ
+        ObjectMapper objectMapper = new ObjectMapper();
+        String session_id_generated = UUID.randomUUID().toString();
+        RequestCreateSession requestCreateSession = new RequestCreateSession(session_id_generated, valueOf(clientConfigs.selected_route_id));
+
+        //debug: 生成したUUIDをClientConfigsに格納
+        clientConfigs.target_uuid = session_id_generated;
+
+        changeLeftFrame(new route());
+
+    }
+    public void changeRightFrame(Fragment targetFragment){ //渡されたfragmentを右のフレームに表示する
+        getParentFragmentManager().beginTransaction().replace(
+                R.id.rightFrame , targetFragment).commit();
+    }
+
+    public void changeLeftFrame(Fragment targetFragment){ //渡されたfragmentを左のフレームに表示する
+        getParentFragmentManager().beginTransaction().replace(
+                R.id.leftFrame , targetFragment).commit();
+    }
+
 
 }

@@ -12,6 +12,8 @@ public class ClientConfigs extends Application {
 
     public int selected_route_id;
 
+    public String target_uuid;
+
     @Override
     public void onCreate() {
         super.onCreate();

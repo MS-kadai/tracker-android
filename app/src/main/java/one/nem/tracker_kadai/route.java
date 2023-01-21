@@ -1,5 +1,7 @@
 package one.nem.tracker_kadai;
 
+import static java.lang.String.valueOf;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,8 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,16 +46,25 @@ public class route extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_route, container, false);
         final Handler handler = new Handler(Looper.getMainLooper());
-        EditText editText_route_id = view.findViewById(R.id.editText_route_id);
-        Button button_get_route = view.findViewById(R.id.button_get_route);
-        button_get_route.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View buttonView) {
-                setRoutePointsToRecyclerView(editText_route_id.getText().toString(), view, handler);
-            }
-        });
+//        EditText editText_route_id = view.findViewById(R.id.editText_route_id);
+//        Button button_get_route = view.findViewById(R.id.button_get_route);
+//        button_get_route.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View buttonView) {
+//                setRoutePointsToRecyclerView(editText_route_id.getText().toString(), view, handler);
+//            }
+//        });
+            initialize(view, handler);
 
         return view;
+    }
+    public void initialize(View view, Handler handler){
+        ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
+        setRoutePointsToRecyclerView(valueOf(clientConfigs.selected_route_id), view, handler);
+
+        //debug
+        TextView route_debug_target_uuid = view.findViewById(R.id.route_debug_target_uuid);
+        route_debug_target_uuid.setText(clientConfigs.target_uuid);
     }
 
     public void setRoutePointsToRecyclerView(String route_id, View view, Handler handler) {
@@ -80,7 +94,7 @@ public class route extends Fragment {
                         pointNameList.add(responseRoutePoint.route.get(i).point_name);
                     }
                     for(int i = 0; i < responseRoutePoint.length; i++) {
-                        pointIdListStr.add(String.valueOf(responseRoutePoint.route.get(i).point_id));
+                        pointIdListStr.add(valueOf(responseRoutePoint.route.get(i).point_id));
                     }
                     for(int i = 0; i < responseRoutePoint.length; i++) {
                         pointCoordinateList.add(responseRoutePoint.route.get(i).coordinate);
