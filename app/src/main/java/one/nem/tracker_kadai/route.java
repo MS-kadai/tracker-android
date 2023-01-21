@@ -107,11 +107,11 @@ public class route extends Fragment {
                             RecyclerView.Adapter<PointListAdapter.PointListViewHolder> pointListAdapter = new PointListAdapter(pointNameList, pointCoordinateList, pointIdListStr, item -> {
                                 ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
                                 clientConfigs.selected_point_id = Integer.parseInt(item);
-                                clientConfigs.selected_point_coordinate = pointCoordinateList.get(Integer.parseInt(item));
+                                clientConfigs.selected_point_coordinate = pointCoordinateList.get(Integer.parseInt(item) - 1);
 
                                 //debug
                                 Log.d("debug", "selected_point_id: " + item);
-                                Log.d("debug", "selected_point_coordinate: " + pointCoordinateList.get(Integer.parseInt(item)));
+                                Log.d("debug", "selected_point_coordinate: " + pointCoordinateList.get(Integer.parseInt(item) - 1));
 
                                 //どう考えてもUIスレッドでやらなくていいので時間があったら引き抜く
                                 changeRightFrame(new point_map());
