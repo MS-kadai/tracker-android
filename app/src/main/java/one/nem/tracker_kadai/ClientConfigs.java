@@ -8,6 +8,10 @@ public class ClientConfigs extends Application {
     //設計最悪すぎてconfig以外もバリバリ入ってるけど動くのでヨシ
     public ResponseRouteList responseRouteList;
 
+    public int preview_route_id;
+
+    public int selected_route_id;
+
     @Override
     public void onCreate() {
         super.onCreate();

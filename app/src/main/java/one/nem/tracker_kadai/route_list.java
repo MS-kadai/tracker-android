@@ -114,12 +114,14 @@ public class route_list extends Fragment {
 
     public void setRouteListToRecyclerView(View view, List<String> routeNameList, List<String> routeIdList){
         final Handler handler = new Handler(Looper.getMainLooper());
+        ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
         handler.post(new Runnable() {
             @Override
             public void run() {
                 RecyclerView recyclerView = view.findViewById(R.id.recyclerView_route_list);
                 RecyclerView.Adapter<RouteListAdapter.RouteListViewHolder> routeListViewHolderAdapter = new RouteListAdapter(routeNameList, routeIdList,  item -> {
                     Log.d("route_list", "onSelect: " + item);
+                    clientConfigs.preview_route_id = Integer.parseInt(item);
 
                 });
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
