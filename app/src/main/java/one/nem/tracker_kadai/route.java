@@ -56,16 +56,17 @@ public class route extends Fragment {
     }
     public void initialize(View view, Handler handler){
         ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
-        setRoutePointsToRecyclerView(valueOf(clientConfigs.selected_route_id), view, handler);
+        setRoutePointsToRecyclerView(clientConfigs.target_url, valueOf(clientConfigs.selected_route_id), view, handler);
 
         //debug
         TextView route_debug_target_uuid = view.findViewById(R.id.route_debug_target_uuid);
         route_debug_target_uuid.setText(clientConfigs.target_uuid);
     }
 
-    public void setRoutePointsToRecyclerView(String route_id, View view, Handler handler) {
+    public void setRoutePointsToRecyclerView(String base_url, String route_id, View view, Handler handler) {
         OkHttpClient okHttpClient = new OkHttpClient();
-        String target_url = "http://10.0.2.2:8000/route/"+route_id; //URL組み立て
+//        String target_url = "http://10.0.2.2:8000/route/"+route_id; //URL組み立て
+        String target_url = base_url + "route/" + route_id;
         Request request = new Request.Builder()
                 .url(target_url)
                 .build();
