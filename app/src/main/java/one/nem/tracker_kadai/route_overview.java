@@ -154,6 +154,8 @@ public class route_overview extends Fragment {
                     else {
                         //200以外が帰ってきたときトーストかなんか表示する
                         Log.d("response_code", valueOf(response_code)); //debug
+                        sessionAlreadyExistsDialog sessionAlreadyExistsDialog = new sessionAlreadyExistsDialog();
+                        sessionAlreadyExistsDialog.show(getParentFragmentManager(), "sessionAlreadyExistsDialog");
                     }
                 }
             });
