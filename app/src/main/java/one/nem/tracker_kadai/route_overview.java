@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -24,8 +26,10 @@ import java.util.UUID;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class route_overview extends Fragment {
@@ -117,16 +121,45 @@ public class route_overview extends Fragment {
         ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
         clientConfigs.selected_route_id = clientConfigs.preview_route_id;
 
-        //UUID生成してリクエストボディを組み立てるやつ
-        ObjectMapper objectMapper = new ObjectMapper();
-        String session_id_generated = UUID.randomUUID().toString();
-        RequestCreateSession requestCreateSession = new RequestCreateSession(session_id_generated, valueOf(clientConfigs.selected_route_id));
 
-        //debug: 生成したUUIDをClientConfigsに格納
-        clientConfigs.target_uuid = session_id_generated;
+        try {
+            //UUID生成してリクエストボディを組み立てるやつ
+            ObjectMapper objectMapper = new ObjectMapper();
+            String session_id_generated = UUID.randomUUID().toString();
+            RequestCreateSession requestCreateSession = new RequestCreateSession(session_id_generated, valueOf(clientConfigs.selected_route_id));
 
-        changeLeftFrame(new route());
+            clientConfigs.target_uuid = session_id_generated;
 
+            String requestBodyStr = objectMapper.writeValueAsString(requestCreateSession);
+
+            Request request = new Request.Builder()
+                    .url(clientConfigs.target_url + "session/create")
+                    .post(RequestBody.create(requestBodyStr, MediaType.parse("application/json")))
+                    .build();
+
+            OkHttpClient okHttpClient = new OkHttpClient();
+            okHttpClient.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    //エラー処理書く
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) {
+                    int response_code = response.code();
+                    if(response_code == 200) {
+                        changeLeftFrame(new route());
+                        Log.d("response_code", valueOf(response_code)); //debug
+                    }
+                    else {
+                        //200以外が帰ってきたときトーストかなんか表示する
+                        Log.d("response_code", valueOf(response_code)); //debug
+                    }
+                }
+            });
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
     public void changeRightFrame(Fragment targetFragment){ //渡されたfragmentを右のフレームに表示する
         getParentFragmentManager().beginTransaction().replace(
