@@ -14,6 +14,8 @@ public class ClientConfigs extends Application {
 
     public String target_uuid;
 
+    public String generated_uuid;
+
     public String selected_point_coordinate;
 
     public String selected_point_name;

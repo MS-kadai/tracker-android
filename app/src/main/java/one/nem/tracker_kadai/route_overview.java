@@ -128,7 +128,8 @@ public class route_overview extends Fragment {
             String session_id_generated = UUID.randomUUID().toString();
             RequestCreateSession requestCreateSession = new RequestCreateSession(session_id_generated, valueOf(clientConfigs.selected_route_id));
 
-            clientConfigs.target_uuid = session_id_generated;
+//            clientConfigs.target_uuid = session_id_generated;
+            clientConfigs.generated_uuid = session_id_generated;
 
             String requestBodyStr = objectMapper.writeValueAsString(requestCreateSession);
 
