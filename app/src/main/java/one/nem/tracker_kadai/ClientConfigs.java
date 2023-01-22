@@ -22,6 +22,8 @@ public class ClientConfigs extends Application {
 
     public int selected_point_id;
 
+    public int current_point_id;
+
     @Override
     public void onCreate() {
         super.onCreate();
