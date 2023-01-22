@@ -1,5 +1,7 @@
 package one.nem.tracker_kadai;
 
+import static java.lang.String.valueOf;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -15,8 +17,12 @@ public class sessionAlreadyExistsDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        ClientConfigs clientConfigs = (ClientConfigs) getActivity().getApplication();
+
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("セッションが既に存在します。")
+        builder.setMessage("ルートID: \""+ clientConfigs.preview_route_id +"\"にはアクティブなセッションが既に存在します。")
+                .setTitle("セッションの作成に失敗しました。")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
