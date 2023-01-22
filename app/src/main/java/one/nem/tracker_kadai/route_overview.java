@@ -149,6 +149,7 @@ public class route_overview extends Fragment {
                 public void onResponse(Call call, Response response) {
                     int response_code = response.code();
                     if(response_code == 200) {
+                        clientConfigs.target_uuid = session_id_generated;
                         changeLeftFrame(new route());
                         Log.d("response_code", valueOf(response_code)); //debug
                     }
