@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    private void hideSystemUI() {
+    public void hideSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY

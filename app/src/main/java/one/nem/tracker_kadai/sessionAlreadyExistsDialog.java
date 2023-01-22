@@ -30,6 +30,11 @@ public class sessionAlreadyExistsDialog extends DialogFragment {
                         Log.d("sessionERR", "onClick: OK");
                     }
                 });
+
+        //最悪
+        MainActivity mainActivity = new MainActivity();
+        mainActivity.hideSystemUI();
+
         return builder.create();
     }
 
