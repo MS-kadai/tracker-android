@@ -11,6 +11,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 public class sessionAlreadyExistsDialog extends DialogFragment {
 
@@ -28,12 +29,12 @@ public class sessionAlreadyExistsDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         dismiss();
                         Log.d("sessionERR", "onClick: OK");
+//
+//                        MainActivity mainActivity = new MainActivity();
+//                        mainActivity.hideSystemUI();
                     }
                 });
 
-        //最悪
-        MainActivity mainActivity = new MainActivity();
-        mainActivity.hideSystemUI();
 
         return builder.create();
     }
